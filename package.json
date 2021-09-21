@@ -1,0 +1,11 @@
+{
+    "dependencies": {
+        "ffi-napi": "^4.0.3"
+    },
+    "name": "yso_cursor_centralization",
+    "version": "1.0.0",
+    "main": "main.js",
+    "author": "sm0ck1",
+    "license": "ISC",
+    "description": "Center the cursor on the active window"
+}
