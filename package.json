@@ -7,5 +7,15 @@
     "main": "main.js",
     "author": "sm0ck1",
     "license": "ISC",
-    "description": "Center the cursor on the active window"
+    "description": "Center the cursor on the active window",
+    "bin": "main.js",
+    "pkg": {
+        "outputPath": "dist",
+        "assets": [
+            "node_modules/**/*"
+        ],
+        "targets": [
+            "node16-win-x64"
+        ]
+    }
 }

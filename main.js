@@ -24,7 +24,6 @@ function getmousepos() {
     pos.x = repbuffer[0] + (repbuffer[1] * 256);
     pos.y = repbuffer[4] + (repbuffer[5] * 256);
     return pos;
-    А
 }
 
 // obtain window dimension
@@ -37,13 +36,13 @@ const getWindowDimensions = function(handle) {
 }
 
 let currentActiveWindow = 0;
+let saveLastPosition = {};
 
 setInterval(() => {
     try {
         const activeWindow = user32.GetForegroundWindow();
         const activeWindowDimensions = getWindowDimensions(activeWindow);
-
-        if (activeWindowDimensions.right === 'null') return;
+        if (!activeWindowDimensions) return;
 
         const activeWindowWidth = activeWindowDimensions.right - activeWindowDimensions.left;
         const activeWindowHeight = activeWindowDimensions.bottom - activeWindowDimensions.top;
@@ -52,11 +51,17 @@ setInterval(() => {
 
         if (!(mouse.x < activeWindowDimensions.right && mouse.x > activeWindowDimensions.left) &&
             activeWindow !== currentActiveWindow) {
-
+            // if (saveLastPosition[activeWindow]) {
+            //     user32.SetCursorPos(saveLastPosition[activeWindow].x, saveLastPosition[activeWindow].y);
+            // } else {
             user32.SetCursorPos(activeWindowDimensions.right - (activeWindowWidth / 2), activeWindowDimensions.bottom - (activeWindowHeight / 2));
+            // }
         }
 
         currentActiveWindow = activeWindow;
+        // if (activeWindowDimensions.left <= mouse.x && activeWindowDimensions.right >= mouse.x) {
+        saveLastPosition[currentActiveWindow] = mouse;
+        // }
 
     } catch (error) {
         console.log(error);
